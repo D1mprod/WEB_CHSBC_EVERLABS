@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Neumorphic Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #e0e5ec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: #e0e5ec;
+      padding: 40px;
+      border-radius: 30px;
+      box-shadow: 10px 10px 30px #a3b1c6,
+                  -10px -10px 30px #ffffff;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #555;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 15px;
+      background: #e0e5ec;
+      box-shadow: inset 6px 6px 10px #babecc,
+                  inset -6px -6px 10px #ffffff;
+      font-size: 16px;
+      color: #333;
+      outline: none;
+    }
+
+    input:focus {
+      box-shadow: inset 4px 4px 8px #babecc,
+                  inset -4px -4px 8px #ffffff;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 25px;
+      background: #e0e5ec;
+      box-shadow: 5px 5px 15px #a3b1c6,
+                  -5px -5px 15px #ffffff;
+      color: #333;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      box-shadow: inset 5px 5px 15px #babecc,
+                  inset -5px -5px 15px #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Personal Info</h2>
+    <form id="infoForm">
+      <label for="name">Name*</label>
+      <input type="text" id="name" name="name">
+
+      <label for="email">Email*</label>
+      <input type="email" id="email" name="email">
+
+      <label for="age">Age*</label>
+      <input type="number" id="age" name="age">
+
+      <div id="errorMessages" class="error"></div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('infoForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const age = parseInt(document.getElementById('age').value.trim(), 10);
+      const errorMessages = [];
+
+      if (name === '') {
+        errorMessages.push("Name is required.");
+      }
+
+      if (!email.includes('@')) {
+        errorMessages.push("Email must contain '@'.");
+      }
+
+      if (isNaN(age) || age <= 0) {
+        errorMessages.push("Age must be a number greater than 0.");
+      }
+
+      const errorContainer = document.getElementById('errorMessages');
+      if (errorMessages.length > 0) {
+        errorContainer.innerHTML = errorMessages.join('<br>');
+      } else {
+        errorContainer.innerHTML = '';
+        alert("Form submitted!");
+      }
+    });
+  </script>
+
+</body>
+</html>
