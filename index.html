@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Personal Info Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .error {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Personal Info Form</h2>
+    <form id="infoForm">
+      <label for="name">Name*</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email*</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="age">Age*</label>
+      <input type="number" id="age" name="age" required>
+
+      <div id="errorMessages" class="error"></div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('infoForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Зупиняє стандартне відправлення форми
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const age = parseInt(document.getElementById('age').value.trim(), 10);
+      const errorMessages = [];
+
+      // Перевірки
+      if (name === '') {
+        errorMessages.push("Name is required.");
+      }
+
+      if (!email.includes('@')) {
+        errorMessages.push("Email must contain '@'.");
+      }
+
+      if (isNaN(age) || age <= 0) {
+        errorMessages.push("Age must be a number greater than 0.");
+      }
+
+      const errorContainer = document.getElementById('errorMessages');
+      if (errorMessages.length > 0) {
+        errorContainer.innerHTML = errorMessages.join('<br>');
+      } else {
+        errorContainer.innerHTML = '';
+        alert("Form submitted!");
+        // Тут можна відправити форму або очистити поля, якщо потрібно
+        // this.submit(); // якщо хочете відправити
+      }
+    });
+  </script>
+
+</body>
+</html>
